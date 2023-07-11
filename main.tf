@@ -1,15 +1,15 @@
 #this file consists of code for instances and sg
 provider "aws" {
 region = "us-east-1"
-access_key = "AKIAW7KBR3YBF6QMWJGV"
-secret_key = "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"
+access_key = "AKIA24W6HN72B22YS77D"
+secret_key = "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"
 }
 
-resource "aws_instance" "one" {
-  ami             = "ami-03c7d01cf4dedc891"
+resource "aws_instance" "zoro" {
+  ami             = "ami-04823729c75214919"
   instance_type   = "t2.micro"
-  key_name        = "rahamnewkp01"
-  vpc_security_group_ids = [aws_security_group.five.id]
+  key_name        = "zooro"
+  vpc_security_group_ids = [aws_security_group.zoro.id]
   availability_zone = "us-east-1a"
   user_data       = <<EOF
 #!/bin/bash
@@ -17,18 +17,18 @@ sudo -i
 yum install httpd -y
 systemctl start httpd
 chkconfig httpd on
-echo "hai all this is my app created by terraform infrastructurte by raham sir server-1" > /var/www/html/index.html
+echo "Hi all this is my app created by terraform infrastructurte on Zoro-server" > /var/www/html/index.html
 EOF
   tags = {
-    Name = "web-serverr-1"
+    Name = "web-zoro"
   }
 }
 
-resource "aws_instance" "two" {
-  ami             = "ami-03c7d01cf4dedc891"
+resource "aws_instance" "nami" {
+  ami             = "ami-04823729c75214919"
   instance_type   = "t2.micro"
-  key_name        = "rahamnewkp01"
-  vpc_security_group_ids = [aws_security_group.five.id]
+  key_name        = "zooro"
+  vpc_security_group_ids = [aws_security_group.zoro.id]
   availability_zone = "us-east-1b"
   user_data       = <<EOF
 #!/bin/bash
@@ -36,36 +36,36 @@ sudo -i
 yum install httpd -y
 systemctl start httpd
 chkconfig httpd on
-echo "hai all this is my website created by terraform infrastructurte by raham sir server-2" > /var/www/html/index.html
+echo "Hai all this is my website created by terraform infrastructurte on Nami-server" > /var/www/html/index.html
 EOF
   tags = {
-    Name = "web-server-2"
+    Name = "web-nami"
   }
 }
 
-resource "aws_instance" "three" {
-  ami             = "ami-03c7d01cf4dedc891"
+resource "aws_instance" "sanji" {
+  ami             = "ami-04823729c75214919"
   instance_type   = "t2.micro"
-  key_name        = "rahamnewkp01"
-  vpc_security_group_ids = [aws_security_group.five.id]
+  key_name        = "zooro"
+  vpc_security_group_ids = [aws_security_group.zoro.id]
   availability_zone = "us-east-1a"
   tags = {
-    Name = "app-server-1"
+    Name = "app-sanji"
   }
 }
 
-resource "aws_instance" "four" {
-  ami             = "ami-03c7d01cf4dedc891"
+resource "aws_instance" "chopper" {
+  ami             = "ami-04823729c75214919"
   instance_type   = "t2.micro"
-  key_name        = "rahamnewkp01"
-  vpc_security_group_ids = [aws_security_group.five.id]
+  key_name        = "zooro"
+  vpc_security_group_ids = [aws_security_group.zoro.id]
   availability_zone = "us-east-1b"
   tags = {
-    Name = "app-server-2"
+    Name = "app-chopper"
   }
 }
 
-resource "aws_security_group" "five" {
+resource "aws_security_group" "zoro" {
   name = "elb-sg"
   ingress {
     from_port   = 22
@@ -89,11 +89,11 @@ resource "aws_security_group" "five" {
   }
 }
 
-resource "aws_s3_bucket" "six" {
-  bucket = "rahamshaikterra77889900prodenv"
+resource "aws_s3_bucket" "zoro-bucket" {
+  bucket = "zoro-bucket"
 }
 
-resource "aws_iam_user" "seven" {
+resource "aws_iam_user" "zoro-user" {
 for_each = var.user_names
 name = each.value
 }
@@ -101,13 +101,13 @@ name = each.value
 variable "user_names" {
 description = "*"
 type = set(string)
-default = ["user1", "user2", "user3", "user4"]
+default = ["zoro", "nami", "sanji", "chopper"]
 }
 
-resource "aws_ebs_volume" "eight" {
+resource "aws_ebs_volume" "zoro-ebs" {
  availability_zone = "us-east-1a"
-  size = 40
+  size = 10
   tags = {
-    Name = "ebs-001"
+    Name = "ebs-zoro"
   }
 }
